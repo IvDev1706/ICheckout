@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h2>Listado de habitaciones</h2>
+</header>
+<aside>
+    <form method="post">
+        {% csrf_token %}
+        {{ type_form }}
+        <button type="submit">registrar</button>
+    </form>
+    {% for type in types %}
+        <div>
+            <p>Nombre: {{ type.name }}</p>
+            <p>Precio por noche: {{ type.price }}</p>
+        </div>
+    {% endfor %}
+</aside>
+<main>
+    <div>
+        <a href="/room/create/">registrar habitacion</a>
+    </div>
+    {% for room in rooms %}
+        <div>
+            <h3>Habitacion H-{{ room.pk }}</h3>
+            <p>Piso: {{ room.floor }}</p>
+            <p>Estado: {{ room.state }}</p>
+            <p>Tipo: {{ room.type }}</p>
+        </div>
+    {% endfor %}
+</main>
+{% endblock content %}

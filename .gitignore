@@ -5,7 +5,7 @@
 .env
 
 #caches
-*/__pycache__/
+*/__pycache__/*
 
 #databases (sqlite)
 *.db

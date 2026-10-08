@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h2>Registro de habitacion</h2>
+</header>
+<main>
+    <div>
+        <h3>Datos de nueva habitacion</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">registrar</button>
+        </form>
+    </div>
+</main>
+{% endblock content %}

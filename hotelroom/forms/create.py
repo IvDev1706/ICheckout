@@ -1,0 +1,43 @@
+import django.forms as forms
+from ..models import RoomType
+
+#formulario de registro de tipo de habitacion
+class RoomTypeAddForm(forms.Form):
+    #campos del formulario
+    name = forms.CharField(
+        label="Nombre:",
+        max_length=15,
+        required=True,
+        widget=forms.TextInput({
+            "placeholder":"regular/vip/suite/etc...",
+            "class":"inpt"
+        })
+    )
+    price = forms.FloatField(
+            label="Precio por noche:",
+            required=True,
+            widget=forms.NumberInput({
+                "class":"inpt"
+            })
+        )
+    model = forms.CharField(initial='roomtype',widget=forms.HiddenInput())
+    
+
+#formulario de registro de habitacion
+class HotelRoomAddForm(forms.Form):
+    #campos del formulario
+    floor = forms.IntegerField(
+        label="Piso:",
+        required=True,
+        widget=forms.TextInput({
+            "class":"inpt"
+        })
+    )
+    type = forms.ModelChoiceField(
+        queryset=RoomType.objects.all(),
+        empty_label="selecciona tipo de habitacion",
+        widget=forms.Select({
+            "class": "inpt-select"
+        })
+    )
+    model = forms.CharField(initial='hotelroom',widget=forms.HiddenInput())
