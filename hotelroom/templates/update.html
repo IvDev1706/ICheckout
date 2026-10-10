@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>Actualizacion de habitacion</h2>
+{% endblock header %}
+
+{% block content %}
+    <div>
+        <h3>Datos de la habitacion {{ id }}</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">guardar</button>
+        </form>
+    </div>
+{% endblock content %}

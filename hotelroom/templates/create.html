@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block content %}
-<header>
+{% block header %}
     <h2>Registro de habitacion</h2>
-</header>
-<main>
+{% endblock header %}
+
+{% block content %}
     <div>
         <h3>Datos de nueva habitacion</h3>
         <form method="post">
@@ -13,5 +13,4 @@
             <button type="submit">registrar</button>
         </form>
     </div>
-</main>
 {% endblock content %}

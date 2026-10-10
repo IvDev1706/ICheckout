@@ -3,22 +3,25 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from ..forms import RoomTypeAddForm
 from ..models import RoomType, HotelRoom
+from ..services import RoomTypeService, HotelRoomService
 
 #vista principal de hotel
 class IndexView(views.View):
     #plantilla de vista
     template_name = "index.html"
     type_form_class = RoomTypeAddForm
+    type_service = RoomTypeService()
+    room_service = HotelRoomService()
     
     #metodo get
     def get(self, request:HttpRequest, *args, **kargs):
         #obtener registros
-        rooms = HotelRoom.objects.order_by("-floor").all()
-        types = RoomType.objects.all()
+        rooms = self.room_service.get_rooms()
+        types = self.type_service.get_types()
         
         #contexto
         context = {
-            "title": "ICheckout - Habitación",
+            "title": "ICheckout - Habitaciónes",
             "type_form": self.type_form_class(),
             "rooms": rooms,
             "types": types
@@ -34,10 +37,7 @@ class IndexView(views.View):
         #guardar datos
         if form.is_valid():
             #guardar tipo en bd
-            RoomType.objects.create(
-                name=form.cleaned_data.get("name"),
-                price=form.cleaned_data.get("price")
-            )
+            self.type_service.create_type(form.cleaned_data)
         
         #redirigir a index (get)
         return redirect("/room/")

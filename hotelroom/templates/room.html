@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>Informacion de habitacion</h2>
+{% endblock header %}
+
+{% block content %}
+    <div>
+        <h3>Habitacion H-{{ room.pk }}</h3>
+        <p>Piso: {{ room.floor }}</p>
+        <p>Estado: {{ room.state }}</p>
+        <p>Tipo: {{ room.type }}</p>
+        <p>Precio por noche: {{ room.type.price }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ drop_form }}
+            <button type="submit">eliminar</button>
+        </form>
+    </div>
+{% endblock content %}

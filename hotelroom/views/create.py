@@ -2,13 +2,14 @@ import django.views as views
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from ..forms import HotelRoomAddForm
-from ..models import HotelRoom, RoomType
+from ..services import HotelRoomService
 
 #vista principal de hotel
 class CreateView(views.View):
     #plantilla de vista
     template_name = "create.html"
     form_class = HotelRoomAddForm
+    service = HotelRoomService()
     
     #metodo get
     def get(self, request:HttpRequest, *args, **kargs):
@@ -28,12 +29,7 @@ class CreateView(views.View):
         #guardar datos
         if form.is_valid():
             #guardar tipo en bd
-            HotelRoom.objects.create(
-                floor=form.cleaned_data.get("floor"),
-                type=form.cleaned_data.get("type")
-            )
-        else:
-            print("create no valido")
+            self.service.create_room(form.cleaned_data)
         
         #redirigir a index (get)
         return redirect("/room/")
