@@ -17,6 +17,7 @@ class RoomTypeAddForm(forms.Form):
             label="Precio por noche:",
             required=True,
             widget=forms.NumberInput({
+                "placeholder":"1000",
                 "class":"inpt"
             })
         )
@@ -34,6 +35,7 @@ class HotelRoomAddForm(forms.Form):
         })
     )
     type = forms.ModelChoiceField(
+        label="Tipo de habitacion",
         queryset=RoomType.objects.all(),
         empty_label="selecciona tipo de habitacion",
         widget=forms.Select({

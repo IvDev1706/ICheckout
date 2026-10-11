@@ -1,9 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" value="width=device-width, initial-scale=1.0">
         <title>{{ title }}</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/icheckout_logo.png' %}">   
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base_aside.css' %}"/>
+        {% block styles %}{% endblock styles %}
     </head>
     <body>
         <header>

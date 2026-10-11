@@ -1,20 +1,33 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/texts.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/boxes.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inputs.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layouts.css' %}"/>
+{% endblock styles %}
+
 {% block header %}
-    <h2>Informacion de habitacion</h2>
+    <h2 class="title txt-clear">ICheckout - Habitaciones</h2>
 {% endblock header %}
 
 {% block content %}
-    <div>
+    <div style="width: 60%;" class="box">
         <h3>Habitacion H-{{ room.pk }}</h3>
         <p>Piso: {{ room.floor }}</p>
         <p>Estado: {{ room.state }}</p>
         <p>Tipo: {{ room.type }}</p>
         <p>Precio por noche: {{ room.type.price }}</p>
-        <form method="post">
-            {% csrf_token %}
-            {{ drop_form }}
-            <button type="submit">eliminar</button>
-        </form>
+        <div class="row-layout">
+            <a class="btn btn-primary" href="/room/update/{{ room.pk }}">editar</a>
+            <form method="post">
+                {% csrf_token %}
+                {{ drop_form }}
+                <button class="btn btn-primary" type="submit">eliminar</button>
+            </form>
+        </div>
     </div>
 {% endblock content %}

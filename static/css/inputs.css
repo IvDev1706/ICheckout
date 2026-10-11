@@ -1,0 +1,8 @@
+.inpt, .inpt-select {
+    background-color: var(--clear-1);
+    border: 2px solid var(--primary-1);
+    border-radius: 10px;
+    text-decoration: none;
+    outline: none;
+    padding: 3px;
+}

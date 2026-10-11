@@ -1,8 +1,7 @@
 import django.views as views
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from ..forms import RoomTypeAddForm
-from ..models import RoomType, HotelRoom
+from ..forms import RoomTypeAddForm, HotelRoomAddForm
 from ..services import RoomTypeService, HotelRoomService
 
 #vista principal de hotel
@@ -10,6 +9,7 @@ class IndexView(views.View):
     #plantilla de vista
     template_name = "index.html"
     type_form_class = RoomTypeAddForm
+    room_form_class = HotelRoomAddForm
     type_service = RoomTypeService()
     room_service = HotelRoomService()
     
@@ -23,6 +23,7 @@ class IndexView(views.View):
         context = {
             "title": "ICheckout - Habitaciónes",
             "type_form": self.type_form_class(),
+            "room_form": self.room_form_class(),
             "rooms": rooms,
             "types": types
         }

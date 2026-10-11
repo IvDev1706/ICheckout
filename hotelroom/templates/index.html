@@ -1,32 +1,81 @@
-{% extends "base.html" %}
+{% extends "base_aside.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/texts.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/boxes.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inputs.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layouts.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/modals.css' %}"/>
+    <script src="{% static 'js/modals.js' %}" defer></script>
+{% endblock styles %}
 
 {% block header %}
-    <h2>Listado de habitaciones</h2>
+    <h2 class="title txt-clear">ICheckout - Habitaciones</h2>
 {% endblock header %}
 
 {% block aside %}
-    <form method="post">
-        {% csrf_token %}
-        {{ type_form }}
-        <button type="submit">registrar</button>
-    </form>
-    {% for type in types %}
-        <div>
-            <p>Nombre: {{ type.name }}</p>
-            <p>Precio por noche: {{ type.price }}</p>
+    <div class="box">
+        <div class="row-layout">
+            <button class="btn btn-primary" onclick="setOpenModal('type')">
+                nuevo tipo de habitacion
+            </button>
         </div>
-    {% endfor %}
+        <div class="column-layout">
+            {% for type in types %}
+                <div>
+                    tipo: {{ type.name }} - {{ type.price }} por noche
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock aside %}
 
 {% block content %}
-    <div>
-        <a href="/room/create/">registrar habitacion</a>
-    </div>
-    {% for room in rooms %}
-        <div>
-            <h3>Habitacion H-{{ room.pk }}</h3>
-            <p>Piso: {{ room.floor }}</p>
-            <p>Estado: {{ room.state }}</p>
+    <div class="box column-layout">
+        <div class="row-layout">
+            <button class="btn btn-primary" onclick="setOpenModal('room')">registrar habitacion</button>
         </div>
-    {% endfor %}
+        {% for room in rooms %}
+            <div>
+                <h3>Habitacion H-{{ room.pk }}</h3>
+                <p>Piso: {{ room.floor }}</p>
+                <p>Estado: {{ room.state }}</p>
+                <a class="btn btn-primary" href="/room/{{ room.pk }}/">ver mas</a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="modal_layer hidden">
+        <div id="type" class="modal_box hidden">
+            <div class="box">
+                <h3 class="title">
+                    Nuevo tipo de habitacion
+                </h3>
+                <form class="column-layout" method="post">
+                    {% csrf_token %}
+                    {{ type_form }}
+                    <div class="row-layout">
+                        <button class="btn btn-primary" type="submit">registrar</button>
+                        <button class="btn btn-primary" type="reset" onclick="setCloseModal('type')">cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="room" class="modal_box hidden">
+            <div class="box">
+                <h3 class="title">
+                    Nueva habitacion
+                </h3>
+                <form class="column-layout" method="post">
+                    {% csrf_token %}
+                    {{ room_form }}
+                    <div class="row-layout">
+                        <button class="btn btn-primary" type="submit">registrar</button>
+                        <button class="btn btn-primary" type="reset" onclick="setCloseModal('room')">cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

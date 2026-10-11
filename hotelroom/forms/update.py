@@ -22,6 +22,7 @@ class HotelRoomModifyForm(forms.Form):
         })
     )
     type = forms.ModelChoiceField(
+        label="Tipo de habitacion",
         queryset=RoomType.objects.all(),
         empty_label="selecciona tipo de habitacion",
         required=True,
@@ -30,6 +31,7 @@ class HotelRoomModifyForm(forms.Form):
         })
     )
     state = forms.ChoiceField(
+        label="Estado",
         choices=STATE_CHOICES,
         required=True,
         widget=forms.Select({
