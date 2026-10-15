@@ -18,7 +18,8 @@ class RoomTypeAddForm(forms.Form):
             required=True,
             widget=forms.NumberInput({
                 "placeholder":"1000",
-                "class":"inpt"
+                "class":"inpt",
+                "min": 0
             })
         )
     model = forms.CharField(initial='roomtype',widget=forms.HiddenInput())

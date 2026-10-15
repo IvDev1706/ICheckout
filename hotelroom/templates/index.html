@@ -1,19 +1,17 @@
 {% extends "base_aside.html" %}
 {% load static %}
 
-{% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/texts.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/boxes.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/inputs.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/layouts.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/modals.css' %}"/>
+{% block scripts %}
     <script src="{% static 'js/modals.js' %}" defer></script>
-{% endblock styles %}
+{% endblock scripts %}
 
 {% block header %}
-    <h2 class="title txt-clear">ICheckout - Habitaciones</h2>
+    <h2 class="title">ICheckout - Habitaciones</h2>
 {% endblock header %}
+
+{% block nav %}
+    <a href="/room/" class="link">recepción</a>
+{% endblock nav %}
 
 {% block aside %}
     <div class="box">
@@ -39,7 +37,7 @@
         </div>
         {% for room in rooms %}
             <div>
-                <h3>Habitacion H-{{ room.pk }}</h3>
+                <h3 class="subtitle">Habitacion H-{{ room.pk }}</h3>
                 <p>Piso: {{ room.floor }}</p>
                 <p>Estado: {{ room.state }}</p>
                 <a class="btn btn-primary" href="/room/{{ room.pk }}/">ver mas</a>
@@ -49,7 +47,7 @@
     <div class="modal_layer hidden">
         <div id="type" class="modal_box hidden">
             <div class="box">
-                <h3 class="title">
+                <h3 class="subtitle">
                     Nuevo tipo de habitacion
                 </h3>
                 <form class="column-layout" method="post">
@@ -64,7 +62,7 @@
         </div>
         <div id="room" class="modal_box hidden">
             <div class="box">
-                <h3 class="title">
+                <h3 class="subtitle">
                     Nueva habitacion
                 </h3>
                 <form class="column-layout" method="post">

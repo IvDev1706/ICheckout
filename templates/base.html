@@ -7,7 +7,8 @@
         <title>{{ title }}</title>
         <link rel="icon" type="image/x-icon" href="{% static 'assets/icheckout_logo.png' %}">   
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
-        {% block styles %}{% endblock styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}"/>
+        {% block scripts %}{% endblock scripts %}
     </head>
     <body>
         <header>
@@ -15,6 +16,10 @@
             {{ title }}
             {% endblock header%}
         </header>
+        <nav>
+            {% block nav %}
+            {% endblock nav %}
+        </nav>
         <aside>
             {% block aside %}
             {% endblock aside %}

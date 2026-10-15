@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}"/>
+{% endblock styles %}
+
+{% block content %}
+    <div style="width: 50%;" class="box">
+        <h3 class="title">ICheckout</h3>
+        <form class="column-layout" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary" type="submit">
+                acceder
+            </button>
+        </form>
+    </div>
+{% endblock content %}

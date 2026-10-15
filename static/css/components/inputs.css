@@ -1,8 +1,15 @@
 .inpt, .inpt-select {
-    background-color: var(--clear-1);
+    background-color: var(--clear-2);
     border: 2px solid var(--primary-1);
     border-radius: 10px;
     text-decoration: none;
     outline: none;
     padding: 3px;
+}
+
+/* wrapper de formulario */
+form div {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2px;
 }

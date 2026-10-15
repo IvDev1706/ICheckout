@@ -1,3 +1,4 @@
+/* colores del tema */
 :root {
     --primary-1: #910BBD;
     --primary-mdl: #910BBD88;
@@ -12,4 +13,14 @@
     --dark-2: #444444;
     --agree-1: #3FA355;
     --agree-2: #2E9244;
+}
+
+/* estilos globales */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: var(--dark-1);
+    box-sizing: border-box;
+    user-select: none;
+    scroll-behavior: smooth;
 }

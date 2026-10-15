@@ -39,3 +39,4 @@ class HotelRoomModifyForm(forms.Form):
         })
     )
     model = forms.CharField(initial='hotelroom',widget=forms.HiddenInput())
+    operation = forms.CharField(initial="modify",widget=forms.HiddenInput())

@@ -1,11 +1,4 @@
-@import "theme.css";
-
-* {
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    user-select: none;
-    scroll-behavior: smooth;
-}
+@import "globals.css";
 
 body {
     background-color: var(--clear-2);
@@ -14,7 +7,7 @@ body {
     padding: 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: 80px 28px 1fr;
 }
 
 header {
@@ -24,14 +17,21 @@ header {
     grid-row: 1 / 2;
 }
 
+nav {
+    background-color: var(--secondary-1);
+    padding: 2px 4px;
+    grid-column:  1 / span 5;
+    grid-row: 2 / 3;
+}
+
 aside {
     padding: 5px;
     grid-column: 1 / 2;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
 }
 
 main {
     padding: 5px;
     grid-column: 2 / span 4;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
 }
