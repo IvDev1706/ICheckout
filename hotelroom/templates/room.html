@@ -16,32 +16,52 @@
 {% endblock nav %}
 
 {% block content %}
-    <div style="width: 60%;" class="box">
+    <div style="width: 50%;" class="box column-layout">
         <h3 class="subtitle">Habitacion H-{{ room.pk }}</h3>
-        <p>Piso: {{ room.floor }}</p>
-        <p>Estado: {{ room.state }}</p>
-        <p>Tipo: {{ room.type }}</p>
-        <p>Precio por noche: {{ room.type.price }}</p>
         <div class="row-layout">
-            <button class="btn btn-primary" onclick="setOpenModal()">editar</button>
-            <form method="post">
-                {% csrf_token %}
-                {{ drop_form }}
-                <button class="btn btn-primary" type="submit">eliminar</button>
-            </form>
+            <img 
+                style="background-color: #910BBD77; border-radius: 10px; border: 3px solid #910BBD"
+                src="{% static 'assets/icheckout_room.png' %}"
+                alt="room_picture" width="320" height="320"
+            />
+            <div>
+                <p>Piso: {{ room.floor }}</p>
+                <p>Estado: {{ room.state }}</p>
+                <p>Tipo: {{ room.type }}</p>
+                <p>Precio por noche: {{ room.type.price }}</p>
+            </div>
+        </div>
+        <div class="row-layout">
+            <button class="btn btn-secondary" onclick="setOpenModal('modify')">editar</button>
+            <button class="btn btn-danger" onclick="setOpenModal('confirm')">eliminar</button>
         </div>
     </div>
     <div class="modal_layer hidden">
-        <div class="modal_box">
+        <div id="modify" class="modal_box hidden">
             <div class="box">
                 <h3 class="subtitle">Actualizar datos de habitacion {{ id }}</h3>
                 <form class="column-layout" method="post">
                     {% csrf_token %}
                     {{ modify_form }}
                     <div class="row-layout">
-                        <button class="btn  btn-primary" type="submit">guardar</button>
-                        <button class="btn  btn-primary" onclick="setCloseModal()" type="reset">cerrar</button>
+                        <button class="btn btn-agree" type="submit">guardar</button>
+                        <button class="btn btn-primary" onclick="setCloseModal('modify')" type="reset">cerrar</button>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div id="confirm" class="modal_box hidden">
+            <div class="box">
+                <h3 class="subtitle">Confirmar eliminación</h3>
+                <p style="text-align: center;">
+                    ¿Esta seguro de realizar esta accion? no es
+                    reversible.
+                </p>
+                <form method="post" class="row-layout">
+                    {% csrf_token %}
+                    {{ drop_form }}
+                    <button class="btn btn-danger" type="submit">eliminar</button>
+                    <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
                 </form>
             </div>
         </div>

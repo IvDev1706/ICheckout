@@ -2,12 +2,29 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
-    gap: 5px;
+    gap: 10px;
 }
 
 .row-layout {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
+}
+
+/* alignments */
+.center {
+    justify-content: center;
+}
+
+.start {
+    justify-content: start;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.around {
+    justify-content: space-around;
 }

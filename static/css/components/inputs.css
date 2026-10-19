@@ -9,6 +9,8 @@
 
 /* wrapper de formulario */
 form div {
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
     flex-flow: column nowrap;
     gap: 2px;

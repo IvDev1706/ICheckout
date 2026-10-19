@@ -1,0 +1,22 @@
+.tbl-wrapper {
+    border: 2px solid var(--primary-1);
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.tbl-head, .tbl-cell {
+    padding: 5px;
+    border: 1px solid var(--primary-1);
+}
+
+.tbl-head {
+    background-color: var(--primary-1);
+    color: var(--clear-1);
+    text-align: center;
+}

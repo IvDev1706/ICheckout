@@ -14,7 +14,8 @@ class LoginView(View):
         #preparar contexto
         context = {
             "title": "ICheckout - Login",
-            "form": self.form()
+            "form": self.form(),
+            "layout": "login",
         }
         
         #renderizar la plantilla

@@ -20,3 +20,36 @@
     background-color: var(--primary-2);
     border-color: var(--primary-2);
 }
+
+.btn-secondary {
+    background-color: var(--secondary-1);
+    border-color: var(--secondary-1);
+    color: var(--dark-1);
+}
+
+.btn-secondary:active {
+    background-color: var(--secondary-2);
+    border-color: var(--secondary-2);
+}
+
+.btn-danger {
+    background-color: var(--thirdary-1);
+    border-color: var(--thirdary-1);
+    color: var(--clear-1);
+}
+
+.btn-danger:active {
+    background-color: var(--thirdary-2);
+    border-color: var(--thirdary-2);
+}
+
+.btn-agree {
+    background-color: var(--agree-1);
+    border-color: var(--agree-1);
+    color: var(--clear-1);
+}
+
+.btn-agree:active {
+    background-color: var(--agree-2);
+    border-color: var(--agree-2);
+}

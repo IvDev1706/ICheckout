@@ -33,7 +33,7 @@ class RoomTypeService:
             #crear objeto
             RoomType.objects.create(
                 name=cleaned_data.get("name"),
-                price=RoomType.objects.get("price")
+                price=cleaned_data.get("price")
             )
             
             #retornar exito

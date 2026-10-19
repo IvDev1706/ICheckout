@@ -1,12 +1,6 @@
 import django.forms as forms
 from ..models import RoomType
-
-#estados de habitacion
-STATE_CHOICES = [
-    (0,'Disponible'),
-    (1,'Reservada'),
-    (2,'Ocupada')
-]
+from ..contants import STATE_CHOICES
 
 #formulario de actualizacion de habitacion
 class HotelRoomModifyForm(forms.Form):
@@ -25,14 +19,6 @@ class HotelRoomModifyForm(forms.Form):
         label="Tipo de habitacion",
         queryset=RoomType.objects.all(),
         empty_label="selecciona tipo de habitacion",
-        required=True,
-        widget=forms.Select({
-            "class": "inpt-select"
-        })
-    )
-    state = forms.ChoiceField(
-        label="Estado",
-        choices=STATE_CHOICES,
         required=True,
         widget=forms.Select({
             "class": "inpt-select"

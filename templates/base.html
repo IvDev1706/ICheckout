@@ -10,20 +10,27 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}"/>
         {% block scripts %}{% endblock scripts %}
     </head>
-    <body>
-        <header>
-            {% block header %}
-            {{ title }}
-            {% endblock header%}
-        </header>
-        <nav>
-            {% block nav %}
-            {% endblock nav %}
-        </nav>
-        <aside>
-            {% block aside %}
-            {% endblock aside %}
-        </aside>
+    {% if layout == "login" %}
+        <body style="background-color: #910BBD;">
+    {% else %}
+        <body>
+    {% endif %}
+        {% if layout != "login" %}
+            <header>
+                <div class="row-layout between">
+                    <img src="{% static 'assets/icheckout_logo.png' %}" height="64" width="64"/>
+                    {% block header %}
+                    {% endblock header%}
+                    <div class="column-layout center">
+                        <a class="btn btn-secondary" href="/">mi perfil</a>
+                    </div>
+                </div>
+            </header>
+            <nav>
+                {% block nav %}
+                {% endblock nav %}
+            </nav>
+        {% endif %}
         <main>
             {% block content %}
             <p>Sin contenido</p>

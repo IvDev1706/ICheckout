@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from ..models import HotelRoom
 from ..forms import HotelRoomDropForm, HotelRoomModifyForm
 from ..services import HotelRoomService
+from ..contants import ROOM_STATES
 
 #vista de habitacion
 class InfoView(views.View):
@@ -21,13 +22,17 @@ class InfoView(views.View):
         #contexto
         context = {
             "title": "ICheckout - Habitación",
-            "room": room,
+            "room": {
+                "pk": room.pk,
+                "floor": room.floor,
+                "type": room.type,
+                "state": ROOM_STATES[room.state]
+            },
             "drop_form": self.drop_form(initial={"id":id}),
             "modify_form": self.modify_form(initial={
                 "id": id,
                 "floor": room.floor,
-                "type": room.type,
-                "status": room.state
+                "type": room.type
             })
         }
         
@@ -36,8 +41,11 @@ class InfoView(views.View):
     
     #peticiones post
     def post(self, request:HttpRequest, id:int, *args, **kagrs):
+        #obtener operacion
+        operation = request.POST.get("operation")
+        
         #obtener formulario
-        form = self.drop_form(request.POST)
+        form = self.drop_form(request.POST) if operation == "drop" else self.modify_form(request.POST)
         
         #validar formulario
         if form.is_valid():
@@ -51,6 +59,10 @@ class InfoView(views.View):
             elif operation == "modify":
                 #actualiza el objeto
                 self.service.update_room(form.cleaned_data)
-            
-        return redirect(f"/room/{id}")
+        
+        #validar operacion
+        if operation == "modify":
+            return redirect(f"/room/{id}")
+        else:
+            return redirect(f"/room/")
         

@@ -1,4 +1,5 @@
 from ..models import HotelRoom
+from ..contants import ROOM_STATES
 
 #servicio para habitaciones
 class HotelRoomService:
@@ -15,17 +16,47 @@ class HotelRoomService:
             #retornar fracaso
             return None
         
-    def get_rooms(self):
+    def get_rooms(self, start_floor:int, span:int = 4):
         #manejo de error
         try:
             #obtener objetos de forma descendiente
-            return HotelRoom.objects.order_by("-floor").all()
+            rooms = HotelRoom.objects.order_by("-floor").filter(floor__gte=start_floor,floor__lte=start_floor+span)
+            
+            #validacion de vacios
+            if not rooms.exists():
+                return [[]]
+            
+            #obtener el piso mas grande
+            max_floor = rooms[0].floor
+            
+            #matriz de habitaciones
+            rooms_clustered = [[] for i in range(max_floor)]
+            
+            #construir matriz y agrupar habitaciones
+            index = 0
+            for room in rooms:
+                #verificar piso
+                if room.floor != max_floor:
+                    #mover punteros
+                    index += (max_floor - room.floor)
+                    max_floor = room.floor
+                    
+                #añadir al piso
+                rooms_clustered[index].append({
+                    "pk":room.pk, 
+                    "floor": room.floor,
+                    "type": room.type,
+                    "state": ROOM_STATES[room.state],
+                })
+            
+            #retornar habitaciones
+            return rooms_clustered
         except Exception as e:
             #imprimir mensaje de error
             print(f"Error: {e}")
             
             #retornar fracaso
-            return None
+            return [[]]
 
     def create_room(self,cleaned_data:dict):
         #manejo de error
@@ -54,7 +85,10 @@ class HotelRoomService:
                 #actualizar datos
                 room.floor = cleaned_data.get("floor")
                 room.type = cleaned_data.get("type")
-                room.state = cleaned_data.get("state")
+                
+                #validar cambio de estado
+                if cleaned_data.get("state"):
+                    room.state = cleaned_data.get("state")
                 
                 #guardar en bd
                 room.save()

@@ -1,0 +1,29 @@
+.room {
+    background-color: var(--clear-2);
+    border-radius: 10px;
+    border: 3px solid var(--primary-1);
+    padding: 5px;
+    margin: 2px;
+    text-align: center;
+}
+
+.room a {
+    text-decoration: none;
+    color: var(--dark-1)
+}
+
+.Disponible {
+    background-color: var(--agree-1);
+}
+
+.Ocupada {
+    background-color: var(--thirdary-1);
+}
+
+.Reservada {
+    background-color: var(--secondary-1);
+}
+
+.Disponible a, .Ocupada a {
+    color: var(--clear-1);
+}
