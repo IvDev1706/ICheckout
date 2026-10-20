@@ -1,2 +1,3 @@
 from .index import IndexView
-from .room import InfoView
+from .room import RoomView
+from .type import TypeView

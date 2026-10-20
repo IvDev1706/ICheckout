@@ -27,8 +27,12 @@
             <div>
                 <p>Piso: {{ room.floor }}</p>
                 <p>Estado: {{ room.state }}</p>
-                <p>Tipo: {{ room.type }}</p>
-                <p>Precio por noche: {{ room.type.price }}</p>
+                {% if room.type %}
+                    <p>Tipo: {{ room.type }}</p>
+                    <p>Precio por noche: {{ room.type.price }}</p>
+                {% else %}
+                    <p>Tipo: sin tipo asignado</p>
+                {% endif %}
             </div>
         </div>
         <div class="row-layout">
@@ -52,17 +56,28 @@
         </div>
         <div id="confirm" class="modal_box hidden">
             <div class="box">
-                <h3 class="subtitle">Confirmar eliminación</h3>
-                <p style="text-align: center;">
-                    ¿Esta seguro de realizar esta accion? no es
-                    reversible.
-                </p>
-                <form method="post" class="row-layout">
-                    {% csrf_token %}
-                    {{ drop_form }}
-                    <button class="btn btn-danger" type="submit">eliminar</button>
-                    <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
-                </form>
+                {% if room.state != 'Disponible' %}
+                    <h3 class="subtitle">Operación no permitida</h3>
+                    <p style="text-align: center;">
+                        No se puede eliminar una habitacion ocupada o
+                        asignada, tiene que estar disponible
+                    </p>
+                    <div class="row-layout">
+                        <button class="btn btn-primary" onclick="setCloseModal('confirm')">cerrar</button>
+                    </div>
+                {% else %}
+                    <h3 class="subtitle">Confirmar eliminación</h3>
+                    <p style="text-align: center;">
+                        ¿Esta seguro de realizar esta accion? es
+                        irreversible.
+                    </p>
+                    <form method="post" class="row-layout">
+                        {% csrf_token %}
+                        {{ drop_form }}
+                        <button class="btn btn-danger" type="submit">eliminar</button>
+                        <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>

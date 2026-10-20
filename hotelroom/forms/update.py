@@ -11,7 +11,7 @@ class HotelRoomModifyForm(forms.Form):
     floor = forms.IntegerField(
         label="Piso:",
         required=True,
-        widget=forms.TextInput({
+        widget=forms.NumberInput({
             "class":"inpt"
         })
     )
@@ -24,5 +24,26 @@ class HotelRoomModifyForm(forms.Form):
             "class": "inpt-select"
         })
     )
-    model = forms.CharField(initial='hotelroom',widget=forms.HiddenInput())
+    operation = forms.CharField(initial="modify",widget=forms.HiddenInput())
+    
+class RoomTypeModifyForm(forms.Form):
+    #campos del formulario
+    id = forms.IntegerField(
+        widget=forms.HiddenInput()
+    )
+    name = forms.CharField(
+        label="Nombre",
+        required=True,
+        widget=forms.TextInput({
+            "class":"inpt"
+        })
+    )
+    price = forms.FloatField(
+        label="Precio por noche",
+        required=True,
+        widget=forms.NumberInput({
+            "class": "inpt",
+            "min": 0
+        })
+    )
     operation = forms.CharField(initial="modify",widget=forms.HiddenInput())

@@ -35,7 +35,9 @@
                         <tbody>
                             {% for type in types %}
                                 <tr>
-                                    <td class="tbl-cell">{{ type.name }}</td>
+                                    <td class="tbl-cell">
+                                        <a class="link" href="/room/type/{{ type.pk }}">{{ type.name }}</a>
+                                    </td>
                                     <td class="tbl-cell">{{ type.price }}</td>
                                 </tr>
                             {% endfor %}
@@ -49,16 +51,9 @@
                 <div class="row-layout">
                     <button class="btn btn-primary" onclick="setOpenModal('room')">registrar habitacion</button>
                 </div>
-                <form class="row-layout" method="get">
+                <form class="row-layout" method="post">
                     {% csrf_token %}
-                    <label>
-                        comenzar en piso: 
-                        <input class="inpt" type="number" min=1 name="start_floor" required/>
-                    </label>
-                    <label>
-                        expandir pisos: 
-                        <input class="inpt" type="number" min=1 name="span" />
-                    </label>
+                    {{ room_paginator_form }}
                     <button class="btn btn-primary" type="submit">visualizar</button>
                 </form>
                 <div style="align-self: center; overflow: auto; max-width: 800px; max-height: 500px;">

@@ -7,7 +7,7 @@ from ..services import HotelRoomService
 from ..contants import ROOM_STATES
 
 #vista de habitacion
-class InfoView(views.View):
+class RoomView(views.View):
     #atributos
     template_name = "room.html"
     drop_form = HotelRoomDropForm
@@ -65,4 +65,3 @@ class InfoView(views.View):
             return redirect(f"/room/{id}")
         else:
             return redirect(f"/room/")
-        

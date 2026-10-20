@@ -45,7 +45,7 @@ class HotelRoomService:
                 rooms_clustered[index].append({
                     "pk":room.pk, 
                     "floor": room.floor,
-                    "type": room.type,
+                    "type": room.type if room.type else "sin tipo",
                     "state": ROOM_STATES[room.state],
                 })
             

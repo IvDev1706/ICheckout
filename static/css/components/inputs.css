@@ -1,4 +1,5 @@
 .inpt, .inpt-select {
+    flex-grow: 1;
     background-color: var(--clear-2);
     border: 2px solid var(--primary-1);
     border-radius: 10px;
@@ -12,6 +13,7 @@ form div {
     padding-left: 10px;
     padding-right: 10px;
     display: flex;
-    flex-flow: column nowrap;
-    gap: 2px;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 5px;
 }

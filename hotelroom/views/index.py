@@ -1,7 +1,7 @@
 import django.views as views
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from ..forms import RoomTypeAddForm, HotelRoomAddForm
+from ..forms import RoomTypeAddForm, HotelRoomAddForm, HotelRoomPaginationForm
 from ..services import RoomTypeService, HotelRoomService
 
 #vista principal de hotel
@@ -10,6 +10,7 @@ class IndexView(views.View):
     template_name = "index.html"
     type_form_class = RoomTypeAddForm
     room_form_class = HotelRoomAddForm
+    room_paginator_form_class = HotelRoomPaginationForm
     type_service = RoomTypeService()
     room_service = HotelRoomService()
     
@@ -39,6 +40,7 @@ class IndexView(views.View):
             "layout": "main",
             "type_form": self.type_form_class(),
             "room_form": self.room_form_class(),
+            "room_paginator_form": self.room_paginator_form_class(),
             "rooms": [{"rooms": rooms[i], "gaps": gaps[i]} for i in range(len(rooms))],
             "types": types
         }
@@ -51,17 +53,27 @@ class IndexView(views.View):
         model = request.POST.get("model")
         
         #obtener datos en formulario
-        form = self.type_form_class(request.POST) if model == "roomtype" else self.room_form_class(request.POST)
+        form = (
+            self.type_form_class(request.POST) if model == "roomtype" 
+                else self.room_paginator_form_class(request.POST) if model == "hotelroom__pagination"
+                else self.room_form_class(request.POST)
+        )
         
         #guardar datos
         if form.is_valid():
-            print(form.cleaned_data.get("model"))
             if model == "roomtype":
                 #guardar tipo en bd
                 self.type_service.create_type(form.cleaned_data)
             elif model == "hotelroom":
                 #guardar habitacion en bd
                 self.room_service.create_room(form.cleaned_data)
+            else:
+                #obtener parametros
+                start_floor = form.cleaned_data.get("start_floor")
+                span = form.cleaned_data.get("span")
+                
+                #aplicar filtros
+                return redirect(f"/room/?start_floor={start_floor}&span={span}")
         
         #redirigir a index (get)
         return redirect("/room/")

@@ -45,6 +45,28 @@ class RoomTypeService:
             #retornar fracaso
             return False
         
+    def update_type(self,cleaned_data:dict):
+        #manejo de error
+        try:
+            #crear nueva habitacion
+            type = RoomType.objects.get(id=cleaned_data.get("id"))
+            
+            #actualizar datos
+            type.name = cleaned_data.get("name")
+            type.price = cleaned_data.get("price")
+            
+            #guardar en bd
+            type.save()
+            
+            #retornar exito
+            return True
+        except Exception as e:
+            #imprimir mensaje de error
+            print(f"Error: {e}")
+            
+            #retornar fracaso
+            return False
+        
     def delete_type(self, id:int):
         #manejo de error
         try:
