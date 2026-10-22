@@ -39,11 +39,15 @@ class SignUpForm(forms.Form):
             "class": "inpt"
         })
     )
-    role = forms.CharField(
-        label='Rol:',
-        max_length=10,
+    role = forms.ChoiceField(
+        label='Rol',
+        choices=[
+            ('','-- seleccione un rol --'),
+            ('recepcionista','Recepcionista'),
+            ('analista','Analista')
+        ],
         required=True,
-        widget=forms.TextInput({
-            "class": "inpt"
+        widget=forms.Select({
+            "class":"inpt-select"
         })
     )

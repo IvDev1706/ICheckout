@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block header %}
+    <h2 class="title">ICheckout - Cierre de sesion</h2>
+{% endblock header %}
+
+{% block content %}
+    <div style="width: 50%;" class="box column-layout">
+        <h3 class="title">Ha cerrado la sesion de forma exitosa</h3>
+        <p style="text-align: center;">
+            la sesion se ha cerrado de forma correcta con exito, puede cerrar
+            esta pastaña del navegador o volver a acceder al sistema haciendo
+            click en el boton inferior.
+        </p>
+        <div class="row-layout">
+            <a class="btn btn-primary" href="/logout">volver a acceder</a>
+        </div>
+    </div>
+{% endblock content %}

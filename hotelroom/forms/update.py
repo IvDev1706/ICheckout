@@ -1,6 +1,5 @@
 import django.forms as forms
 from ..models import RoomType
-from ..contants import STATE_CHOICES
 
 #formulario de actualizacion de habitacion
 class HotelRoomModifyForm(forms.Form):
