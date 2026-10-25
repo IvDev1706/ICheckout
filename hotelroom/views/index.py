@@ -37,6 +37,7 @@ class IndexView(views.View):
         #contexto
         context = {
             "title": "ICheckout - Habitaciónes",
+            "subtitle": "ICheckout - Habitaciónes",
             "layout": "main",
             "type_form": self.type_form_class(),
             "room_form": self.room_form_class(),

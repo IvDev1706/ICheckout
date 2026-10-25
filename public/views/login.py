@@ -1,15 +1,15 @@
 from django.views import View
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from ..forms import LoginForm
-from ..models import ICUser
+from ..services import UserService
 
 #vista de login
 class LoginView(View):
     #atributos
     template_name = "login.html"
     form = LoginForm
+    service = UserService()
     
     #peticiones get
     def get(self, request:HttpRequest, *args, **kargs):
@@ -30,18 +30,13 @@ class LoginView(View):
         
         #si es valido
         if form.is_valid():
-            #manejo de error
-            try:
-                #validar credenciales
-                u = ICUser.objects.get(
-                    name=form.cleaned_data.get("name"),
-                    password=form.cleaned_data.get("password")
-                )
-                
+            #validar credenciales
+            user_id = self.service.validate_user(form.cleaned_data)
+            
+            #validar usuario
+            if user_id:
                 #añadir sesion
-                request.session["user_id"] = u.pk
-            except ObjectDoesNotExist:
-                pass
+                request.session["user_id"] = user_id
             
         #redirigir a login
         return redirect("/room/")

@@ -6,9 +6,20 @@
     margin: 10px auto;
 }
 
-.centered-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+/* colores de fondo */
+.bg-primary {
+    background-color: var(--primary-1);
+}
+
+/* anchos de caja */
+.width-40 {
+    width: 40%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.width-70 {
+    width: 70%;
 }

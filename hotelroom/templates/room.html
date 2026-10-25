@@ -1,84 +1,75 @@
-{% extends "base.html" %}
+{% extends "single_content.html" %}
 
 {% load static %}
 
-{% block scripts %}
-    <script src="{% static 'js/modals.js' %}" defer></script>
-{% endblock scripts %}
-
-{% block header %}
-    <h2 class="title">ICheckout - Habitaciones</h2>
-{% endblock header %}
-
-{% block nav %}
+{% block links %}
     <a href="/room/" class="link">recepción</a> /
     <a href="/room/" class="link">habitaciónes</a>
-{% endblock nav %}
+{% endblock links %}
 
-{% block content %}
-    <div style="width: 50%;" class="box column-layout">
-        <h3 class="subtitle">Habitacion H-{{ room.pk }}</h3>
-        <div class="row-layout">
-            <img 
-                style="background-color: #910BBD77; border-radius: 10px; border: 3px solid #910BBD"
-                src="{% static 'assets/icheckout_room.png' %}"
-                alt="room_picture" width="320" height="320"
-            />
-            <div>
-                <p>Piso: {{ room.floor }}</p>
-                <p>Estado: {{ room.state }}</p>
-                {% if room.type %}
-                    <p>Tipo: {{ room.type }}</p>
-                    <p>Precio por noche: {{ room.type.price }}</p>
-                {% else %}
-                    <p>Tipo: sin tipo asignado</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row-layout">
-            <button class="btn btn-secondary" onclick="setOpenModal('modify')">editar</button>
-            <button class="btn btn-danger" onclick="setOpenModal('confirm')">eliminar</button>
+{% block box_content %}
+    <h3 class="subtitle">Habitacion H-{{ room.pk }}</h3>
+    <div class="row-layout">
+        <img 
+            class="img"
+            src="{% static 'assets/icheckout_room.png' %}"
+            alt="room_picture" width="320" height="320"
+        />
+        <div>
+            <p>Piso: {{ room.floor }}</p>
+            <p>Estado: {{ room.state }}</p>
+            {% if room.type %}
+                <p>Tipo: {{ room.type }}</p>
+                <p>Precio por noche: {{ room.type.price }}</p>
+            {% else %}
+                <p>Tipo: sin tipo asignado</p>
+            {% endif %}
         </div>
     </div>
-    <div class="modal_layer hidden">
-        <div id="modify" class="modal_box hidden">
-            <div class="box">
-                <h3 class="subtitle">Actualizar datos de habitacion {{ id }}</h3>
-                <form class="column-layout" method="post">
+    <div class="row-layout">
+        <button class="btn btn-secondary" onclick="setOpenModal('modify')">editar</button>
+        <button class="btn btn-danger" onclick="setOpenModal('confirm')">eliminar</button>
+    </div>
+{% endblock box_content %}
+
+{% block modals %}
+    <div id="modify" class="modal_box hidden">
+        <div class="box">
+            <h3 class="subtitle">Actualizar datos de habitacion {{ id }}</h3>
+            <form class="column-layout" method="post">
+                {% csrf_token %}
+                {{ modify_form }}
+                <div class="row-layout">
+                    <button class="btn btn-agree" type="submit">guardar</button>
+                    <button class="btn btn-primary" onclick="setCloseModal('modify')" type="reset">cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="confirm" class="modal_box hidden">
+        <div class="box">
+            {% if room.state != 'Disponible' %}
+                <h3 class="subtitle">Operación no permitida</h3>
+                <p style="text-align: center;">
+                    No se puede eliminar una habitacion ocupada o
+                    asignada, tiene que estar disponible
+                </p>
+                <div class="row-layout">
+                    <button class="btn btn-primary" onclick="setCloseModal('confirm')">cerrar</button>
+                </div>
+            {% else %}
+                <h3 class="subtitle">Confirmar eliminación</h3>
+                <p style="text-align: center;">
+                    ¿Esta seguro de realizar esta accion? es
+                    irreversible.
+                </p>
+                <form method="post" class="row-layout">
                     {% csrf_token %}
-                    {{ modify_form }}
-                    <div class="row-layout">
-                        <button class="btn btn-agree" type="submit">guardar</button>
-                        <button class="btn btn-primary" onclick="setCloseModal('modify')" type="reset">cerrar</button>
-                    </div>
+                    {{ drop_form }}
+                    <button class="btn btn-danger" type="submit">eliminar</button>
+                    <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
                 </form>
-            </div>
-        </div>
-        <div id="confirm" class="modal_box hidden">
-            <div class="box">
-                {% if room.state != 'Disponible' %}
-                    <h3 class="subtitle">Operación no permitida</h3>
-                    <p style="text-align: center;">
-                        No se puede eliminar una habitacion ocupada o
-                        asignada, tiene que estar disponible
-                    </p>
-                    <div class="row-layout">
-                        <button class="btn btn-primary" onclick="setCloseModal('confirm')">cerrar</button>
-                    </div>
-                {% else %}
-                    <h3 class="subtitle">Confirmar eliminación</h3>
-                    <p style="text-align: center;">
-                        ¿Esta seguro de realizar esta accion? es
-                        irreversible.
-                    </p>
-                    <form method="post" class="row-layout">
-                        {% csrf_token %}
-                        {{ drop_form }}
-                        <button class="btn btn-danger" type="submit">eliminar</button>
-                        <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
-                    </form>
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
     </div>
-{% endblock content %}
+{% endblock modals %}

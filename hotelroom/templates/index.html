@@ -1,15 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_app.html" %}
 {% load static %}
 
 {% block scripts %}
     <script src="{% static 'js/modals.js' %}" defer></script>
 {% endblock scripts %}
-
-{% block header %}
-    <div class="row-layout">
-        <h2 class="title">ICheckout - Habitaciones</h2>
-    </div>
-{% endblock header %}
 
 {% block nav %}
     <a href="/room/" class="link">recepción</a>
@@ -46,12 +40,12 @@
                 </div>
             </div>
         </div>
-        <div style="width: 70%;">
+        <div class="width-70">
             <div class="box column-layout">
                 <div class="row-layout">
                     <button class="btn btn-primary" onclick="setOpenModal('room')">registrar habitacion</button>
                 </div>
-                <form class="row-layout" method="post">
+                <form class="row-layout form-inline" method="post">
                     {% csrf_token %}
                     {{ room_paginator_form }}
                     <button class="btn btn-primary" type="submit">visualizar</button>
@@ -64,7 +58,7 @@
                                         <p>Piso {{ forloop.revcounter }}</p>
                                     </td>
                                     {% for room in floor.rooms %}
-                                        <td class="room {{ room.state }}">
+                                        <td class="room {{ room.state }} txt-center">
                                             <a href="/room/{{ room.pk }}/">
                                                 H-{{ room.pk }}<br>
                                                 {{ room.type }}

@@ -12,9 +12,14 @@
     gap: 10px;
 }
 
-/* alignments */
+/* alineaciones */
 .center {
     justify-content: center;
+}
+
+.completely-center {
+    justify-content: center;
+    align-items: center;
 }
 
 .start {

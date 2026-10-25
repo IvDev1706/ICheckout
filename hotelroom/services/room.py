@@ -1,5 +1,11 @@
 from ..models import HotelRoom
-from ..contants import ROOM_STATES
+
+#estados de habitacion
+ROOM_STATES = [
+    "Disponible",
+    "Reservada",
+    "Ocupada"
+]
 
 #servicio para habitaciones
 class HotelRoomService:

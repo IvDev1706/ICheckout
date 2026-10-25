@@ -14,7 +14,8 @@ class LogoutView(View):
         
         #preparar contexto
         context = {
-            "title": "ICheckout - Logout"
+            "title": "ICheckout - Logout",
+            "subtitle": "ICheckout - Cierre de sesion"
         }
         
         #renderizar la plantilla

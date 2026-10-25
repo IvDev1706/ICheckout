@@ -11,15 +11,24 @@
     font-size: 20px;
 }
 
-.pharagraph {
+/* alineaciones */
+.txt-center {
+    text-align: center;
+}
+
+.txt-right {
+    text-align: right;
+}
+
+.txt-justified {
     text-align: justify;
 }
 
 /* colores de texto */
-.clear {
+.txt-clear {
     color: var(--clear-1);
 }
 
-.dark {
+.txt-dark {
     color: var(--dark-1);
 }

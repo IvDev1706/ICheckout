@@ -2,13 +2,14 @@ from django.views import View
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from ..forms import SignUpForm
-from ..models import ICUser
+from ..services import UserService
 
 #vista de sign up
 class SignUpView(View):
     #atributos
     template_name = "signup.html"
     form = SignUpForm
+    service = UserService()
     
     #peticiones get
     def get(self, request:HttpRequest, *args, **kargs):
@@ -30,10 +31,7 @@ class SignUpView(View):
         #si es valido
         if form.is_valid():
             #crear usuario
-            ICUser.objects.create(
-                name=form.cleaned_data.get("name"),
-                password=form.cleaned_data.get("password")
-            )
+            self.service.create_user(form.cleaned_data)
             
         #redirigir a login
         return redirect("/")

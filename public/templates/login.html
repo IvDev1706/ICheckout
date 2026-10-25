@@ -1,19 +1,17 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 
 {% load static %}
 
 {% block content %}
-    <div style="width: 40%;" class="box centered-box column-layout">
-        <img src="{% static 'assets/icheckout_brand.png' %}" height="168" style="object-fit: contain"/>
-        <form class="column-layout" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <button class="btn btn-primary" type="submit">
-                acceder
-            </button>
-        </form>
-        <div class="row-layout">
-            <a class="link" href="/signup">registrar usuario nuevo</a>
-        </div>
+    <img src="{% static 'assets/icheckout_brand.png' %}" height="168" style="object-fit: contain"/>
+    <form class="column-layout" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">
+            acceder
+        </button>
+    </form>
+    <div class="row-layout">
+        <a class="link" href="/signup">registrar usuario nuevo</a>
     </div>
 {% endblock content %}

@@ -1,12 +1,13 @@
 from django.views import View
 from django.http import HttpRequest
 from django.shortcuts import render
-from ..models import ICUser
+from ..services import UserService
 
 #vista de login
 class ProfileView(View):
     #atributos
     template_name = "profile.html"
+    service = UserService()
     
     #peticiones get
     def get(self, request:HttpRequest, *args, **kargs):
@@ -16,7 +17,8 @@ class ProfileView(View):
         #preparar contexto
         context = {
             "title": "ICheckout - Perfil",
-            "user": ICUser.objects.get(id=user_id)
+            "subtitle": "ICheckout - Perfil de usuario",
+            "user": self.service.get_user(int(user_id))
         }
         
         #renderizar la plantilla

@@ -1,0 +1,5 @@
+.img {
+    background-color: #910BBD77;
+    border-radius: 25%;
+    border: 3px solid var(--primary-1);
+}

@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from ..models import HotelRoom
 from ..forms import HotelRoomDropForm, HotelRoomModifyForm
-from ..services import HotelRoomService
-from ..contants import ROOM_STATES
+from ..services import HotelRoomService, ROOM_STATES
 
 #vista de habitacion
 class RoomView(views.View):
@@ -22,6 +21,7 @@ class RoomView(views.View):
         #contexto
         context = {
             "title": "ICheckout - Habitación",
+            "subtitle": "ICheckout - Habitación",
             "room": {
                 "pk": room.pk,
                 "floor": room.floor,

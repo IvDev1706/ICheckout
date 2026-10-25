@@ -1,17 +1,13 @@
-{% extends "base.html" %}
+{% extends "base_app.html" %}
 
 {% load static %}
 
-{% block header %}
-    <h2 class="title">ICheckout - Perfil de usuario</h2>
-{% endblock header %}
-
 {% block content %}
-    <div style="width: 50%;" class="box column-layout">
-        <h3>Información de la cuenta</h3>
+    <div class="box width-50 column-layout">
+        <h3 class="subtitle">Información de la cuenta</h3>
         <div class="row-layout">
             <img 
-                style="background-color: #910BBD77; border-radius: 10px; border: 3px solid #910BBD"
+                class="img"
                 src="{% static 'assets/icheckout_user.png' %}"
                 alt="type_picture" width="320" height="320"
             />

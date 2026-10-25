@@ -20,6 +20,7 @@ class TypeView(views.View):
         #contexto
         context = {
             "title": "ICheckout - Habitación",
+            "subtitle": "ICheckout - Habitación",
             "type": {
                 "pk": room.pk,
                 "name": room.name,
