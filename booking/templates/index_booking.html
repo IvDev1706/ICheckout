@@ -1,0 +1,30 @@
+{% extends "base_app.html" %}
+
+{% load static %}
+
+{% block nav %}
+    <a href="/room/" class="link">recepción</a>
+{% endblock nav %}
+
+{% block content %}
+    <div style="align-items: center;" class="column-layout">
+        <h3 class="subtitle">Listado de reservas</h3>
+        <a class="btn btn-primary" href="/booking/create">registrar nueva reserva</a>
+        {% for booking in bookings %}
+            <div class="box row-layout space-around">
+                <img 
+                    class="img"
+                    src="{% static "assets/icheckout_logo.png" %}"
+                    width="128"
+                    height="128"
+                />
+                <div>
+                    <h4 class="subtitle">Reserva R-{{ booking.pk }}</h4>
+                    <p>Fecha de reserva: {{ booking.arrive_date }}</p>
+                    <p>Por: {{ booking.owner }}</p>
+                    <a class="btn btn-primary" href="/booking/{{ booking.pk }}">ver detalles</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

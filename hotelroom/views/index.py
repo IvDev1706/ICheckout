@@ -7,7 +7,7 @@ from ..services import RoomTypeService, HotelRoomService
 #vista principal de hotel
 class IndexView(views.View):
     #plantilla de vista
-    template_name = "index.html"
+    template_name = "index_room.html"
     type_form_class = RoomTypeAddForm
     room_form_class = HotelRoomAddForm
     room_paginator_form_class = HotelRoomPaginationForm

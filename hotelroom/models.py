@@ -24,3 +24,6 @@ class HotelRoom(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
+    
+    def __str__(self):
+            return f"H-{self.pk} estado: {self.state} tipo: {self.type}"

@@ -1,0 +1,17 @@
+{% extends "single_content.html" %}
+
+{% load static %}
+
+{% block links %}
+    <a href="/room/" class="link">recepción</a> /
+    <a href="/booking/" class="link">reservaciónes</a>
+{% endblock links %}
+
+{% block box_content %}
+    <h3 class="subtitle">Registrar nueva reserva</h3>
+    <form class="column-layout" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-agree" type="submit">registrar</button>
+    </form>
+{% endblock box_content %}

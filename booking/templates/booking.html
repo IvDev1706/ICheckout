@@ -1,0 +1,55 @@
+{% extends "single_content.html" %}
+
+{% load static %}
+
+{% block links %}
+    <a href="/room/" class="link">recepción</a> /
+    <a href="/booking/" class="link">reservas</a>
+{% endblock links %}
+
+{% block box_content %}
+    <h3 class="subtitle">Reserva R-{{ booking.pk }}</h3>
+    <div class="row-layout">
+        <img 
+            class="img"
+            src="{% static 'assets/icheckout_logo.png' %}"
+            alt="booking_picture" width="320" height="320"
+        />
+        <div>
+            <p>Titular: {{ booking.owner }}</p>
+            <p>Tipo de turista: {{ booking.tourist_type }}</p>
+            <p>Numero de huespedes: {{ booking.guests }}</p>
+            <p>Fecha de llegada: {{ booking.arrive_date }}</p>
+            <p>Fecha de salida: {{ booking.departure_date }}</p>
+            <p>Estado: {{ booking.state }}</p>
+        </div>
+    </div>
+{% endblock box_content %}
+
+{% block extra_content %}
+    <div class="box width-50">
+        <h3 class="subtitle">Habitacion(es)</h3>
+        <div class="tbl-wrapper">
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <td class="tbl-head">Id</td>
+                        <td class="tbl-head">Piso</td>
+                        <td class="tbl-head">Tipo</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in booking.rooms %}
+                        <tr>
+                            <td class="tbl-cell">
+                                <a class="link" href="/room/{{ room.pk }}">H-{{ room.pk }}</a>
+                            </td>
+                            <td class="tbl-cell">{{ room.floor }}</td>
+                            <td class="tbl-cell">{{ room.type }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock extra_content %}
