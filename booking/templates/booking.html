@@ -13,7 +13,7 @@
         <img 
             class="img"
             src="{% static 'assets/icheckout_logo.png' %}"
-            alt="booking_picture" width="320" height="320"
+            alt="booking_picture" width="256" height="256"
         />
         <div>
             <p>Titular: {{ booking.owner }}</p>
@@ -21,8 +21,20 @@
             <p>Numero de huespedes: {{ booking.guests }}</p>
             <p>Fecha de llegada: {{ booking.arrive_date }}</p>
             <p>Fecha de salida: {{ booking.departure_date }}</p>
-            <p>Estado: {{ booking.state }}</p>
+            {% if booking.state == "Terminada" or booking.state == "Cancelada" %}
+                <p>Estado: {{ booking.state }}</p>
+            {% else %}
+                <form class="row-layout form-inline" method="post">
+                    {% csrf_token %}
+                    {{ modify_status_form }}
+                    <button class="btn btn-primary" type="submit">cambiar</button>
+                </form>
+            {% endif %}
         </div>
+    </div>
+    <div class="row-layout">
+        <button class="btn btn-secondary" onclick="setOpenModal('modify')">editar</button>
+        <button class="btn btn-danger" onclick="setOpenModal('confirm')">eliminar</button>
     </div>
 {% endblock box_content %}
 
@@ -53,3 +65,45 @@
         </div>
     </div>
 {% endblock extra_content %}
+
+{% block modals %}
+    <div id="modify" class="modal_box hidden">
+        <div class="box">
+            <h3 class="subtitle">Actualizar datos de reserva {{ booking.id }}</h3>
+            <form class="column-layout" method="post">
+                {% csrf_token %}
+                {{ modify_form }}
+                <div class="row-layout">
+                    <button class="btn btn-agree" type="submit">guardar</button>
+                    <button class="btn btn-primary" onclick="setCloseModal('modify')" type="reset">cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="confirm" class="modal_box hidden">
+        <div class="box">
+            {% if booking.state == 'En casa' %}
+                <h3 class="subtitle">Operación no permitida</h3>
+                <p style="text-align: center;">
+                    No se puede eliminar una reserva si el cliente ya esta
+                    en piso.
+                </p>
+                <div class="row-layout">
+                    <button class="btn btn-primary" onclick="setCloseModal('confirm')">cerrar</button>
+                </div>
+            {% else %}
+                <h3 class="subtitle">Confirmar eliminación</h3>
+                <p style="text-align: center;">
+                    ¿Esta seguro de realizar esta accion? es
+                    irreversible.
+                </p>
+                <form method="post" class="row-layout">
+                    {% csrf_token %}
+                    {{ drop_form }}
+                    <button class="btn btn-danger" type="submit">eliminar</button>
+                    <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock modals %}

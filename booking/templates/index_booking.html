@@ -8,10 +8,9 @@
 
 {% block content %}
     <div style="align-items: center;" class="column-layout">
-        <h3 class="subtitle">Listado de reservas</h3>
         <a class="btn btn-primary" href="/booking/create">registrar nueva reserva</a>
         {% for booking in bookings %}
-            <div class="box row-layout space-around">
+            <div class="box row-layout completely-center">
                 <img 
                     class="img"
                     src="{% static "assets/icheckout_logo.png" %}"

@@ -2,7 +2,7 @@
 BOOOKING_STATES = [
     "Reservada",
     "En casa",
-    "Terminada"
+    "Terminada",
     "Cancelada",
 ]
 

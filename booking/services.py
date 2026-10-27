@@ -1,4 +1,4 @@
-
+from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
 from .constants import BOOOKING_STATES, TOURIST_TYPES
 from .models import Booking, BookingRoomAsignment, HotelRoom
@@ -57,7 +57,7 @@ class BookingService:
                 #imprimir mensaje
                 print(f"Error: {e}")
                 #retornar vacio
-                return []
+                return None
             
     def create_booking(self, cleaned_data:dict):
         #manejo de error
@@ -77,6 +77,9 @@ class BookingService:
                     booking=booking,
                     room=room
                 )
+                #actualizar estado de habitacion
+                room.state = 1
+                room.save()
                 
             #retornar exito
             return True
@@ -85,4 +88,88 @@ class BookingService:
             print(f"Error: {e}")
             #retornar falso
             return False
+
+    def delete_booking(self, id:int):
+        #manejo de error
+        try:
+            #buscar reserva
+            booking = Booking.objects.get(id=id)
             
+            #eliminar reserva
+            booking.delete()
+            
+            #retornar verdadero
+            return True
+        except ObjectDoesNotExist as e:
+            #mensaje de error
+            print(f"Error: {e}")
+            #retornar falso
+            return False
+
+    def update_booking_info(self, cleaned_data:dict):
+        #manejo de error
+        try:
+            #buscar reserva
+            booking = Booking.objects.get(id=cleaned_data.get("id"))
+            
+            #cambiar datos
+            booking.arrive_date = cleaned_data.get("arrive_date")
+            booking.guests = cleaned_data.get("guests")
+            booking.tourist_type = cleaned_data.get("tourist_type")
+            booking.owner = cleaned_data.get("owner")
+            
+            #guardar cambios
+            booking.save()
+            
+            #retornar verdadero
+            return True
+        except Exception as e:
+            #mensaje de error
+            print(f"Error: {e}")
+            #retornar falso
+            return False
+        
+    def update_booking_status(self, cleaned_data:dict):
+        #manejo de error
+        try:
+            #buscar reserva
+            booking = Booking.objects.get(id=cleaned_data.get("id"))
+            
+            #obtener estado
+            state = int(cleaned_data.get("state"))
+            
+            #cambiar datos
+            booking.state = state
+            
+            ##obtener ids de habitacion
+            room_ids = BookingRoomAsignment.objects.filter(booking=booking).values_list('room',flat=True)
+            rooms = HotelRoom.objects.filter(pk__in=room_ids)
+            
+            #validar cambios
+            if BOOOKING_STATES[state] == BOOOKING_STATES[2] or BOOOKING_STATES[state] == BOOOKING_STATES[3]:
+                #si termino se añade fecha de termino
+                if BOOOKING_STATES[state] == BOOOKING_STATES[2]:
+                    booking.departure_date = date.today()
+                
+                #liberar habitaciones
+                for room in rooms:
+                    #cambiar estado
+                    room.state = 0
+                    room.save()
+            elif BOOOKING_STATES[state] == BOOOKING_STATES[1]:
+                #cambiar estado de habitaciones
+                for room in rooms:
+                    #cambiar estado
+                    room.state = 2
+                    room.save()
+            
+            #guardar cambios
+            booking.save()
+            
+            #retornar verdadero
+            return True
+        except Exception as e:
+            #mensaje de error
+            print(f"Error: {e}")
+            #retornar falso
+            return False
