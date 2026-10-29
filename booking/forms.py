@@ -105,3 +105,16 @@ class BookingModifyStatusForm(forms.Form):
         })
     )
     operation = forms.CharField(initial="modify_status",widget=forms.HiddenInput())
+    
+#formulario de busqueda
+class BookingSearchForm(forms.Form):
+    #campos
+    search = forms.CharField(
+        label="Buscar",
+        min_length=1,
+        widget=forms.TextInput({
+            "class": "inpt",
+            "placeholder": "fecha de llegada o titular"
+        })
+    )
+    operation = forms.CharField(initial="search",widget=forms.HiddenInput())

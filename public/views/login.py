@@ -37,6 +37,9 @@ class LoginView(View):
             if user_id:
                 #añadir sesion
                 request.session["user_id"] = user_id
+                #obtener y guardar rol
+                u = self.service.get_user(user_id)
+                request.session["user_role"] = u.role or ''
             
         #redirigir a login
-        return redirect("/room/")
+        return redirect("/home/")

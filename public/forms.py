@@ -1,4 +1,5 @@
 import django.forms as forms
+from .constants import USER_ROLES
 
 #formulario de login
 class LoginForm(forms.Form):
@@ -43,8 +44,8 @@ class SignUpForm(forms.Form):
         label='Rol',
         choices=[
             ('','-- seleccione un rol --'),
-            ('recepcionista','Recepcionista'),
-            ('analista','Analista')
+            (USER_ROLES[0],USER_ROLES[0].capitalize()),
+            (USER_ROLES[1],USER_ROLES[1].capitalize())
         ],
         required=True,
         widget=forms.Select({

@@ -1,0 +1,27 @@
+{% extends "base_app.html" %}
+
+{% load static %}
+
+{% block content %}
+    <h3 class="subtitle">Bienvenido, ¿Que desea hacer?</h3>
+    <div class="row-layout">
+        {% for module in modules %}
+            <div class="box width-40">
+                <h3 class="subtitle">{{ module.title }}</h3>
+                <hr size="5" style="background-color: var(--primary-1);"/>
+                <div class="row-layout">
+                    <img 
+                        class="img"
+                        src="{% static module.picture %}"
+                        width="192"
+                        height="192"
+                    />
+                </div>
+                <p class="txt-center">{{ module.description }}</p>
+                <div class="row-layout">
+                    <a class="btn btn-primary" href="{{ module.url }}">acceder</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

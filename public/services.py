@@ -14,7 +14,7 @@ class UserService:
             #imprimir mensaje de error
             print(f"Error: {e}")
             #retornar falso
-            return 0
+            return None
     
     def validate_user(self, cleaned_data:dict):
         #manejo de error

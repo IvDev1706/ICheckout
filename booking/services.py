@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django.core.exceptions import ObjectDoesNotExist
 from .constants import BOOOKING_STATES, TOURIST_TYPES
 from .models import Booking, BookingRoomAsignment, HotelRoom
@@ -6,11 +6,36 @@ from .models import Booking, BookingRoomAsignment, HotelRoom
 #clase de servicio de reservas
 class BookingService:
     #operaciones
-    def get_bookings(self, page:int, per_page:int = 10):
+    def get_bookings(self, page:int, per_page:int = 10, search:str=""):
         #manejo de error
         try:
-            #obtener datos
-            bookings = Booking.objects.filter(id__gte=page+1,id__lte=(page+1)*per_page)
+            #contenedor de reservas
+            bookings = None
+            
+            #validar filtro
+            if search:
+                #validar si es fecha o nombre
+                try:
+                    date = datetime.strptime(search,"%d/%m/%Y")
+                    #obtener datos
+                    bookings = Booking.objects.filter(
+                        arrive_date=date.date(),
+                        id__gte=page+1,
+                        id__lte=(page+1)*per_page
+                    )
+                except Exception as e:
+                    #es busqueda nombre
+                    bookings = Booking.objects.filter(
+                        owner__icontains=search,
+                        id__gte=page+1,
+                        id__lte=(page+1)*per_page
+                    )
+            else:
+                #paginacion sobre todo
+                bookings = Booking.objects.filter(
+                    id__gte=page+1,
+                    id__lte=(page+1)*per_page
+                )
             
             #si no hay nada
             if not bookings.exists():
