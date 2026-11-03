@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import json
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -108,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-mx'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC-6'
 
 USE_I18N = True
 
@@ -129,3 +130,14 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+
+# Hotel
+# variables de configuracion de hotel
+with open(BASE_DIR/"hotel.json","r") as f:
+    __CONFIG = json.loads(f.read())
+    BRANCH_NAME = __CONFIG.get("branch")
+    __DIMENTIONS = __CONFIG.get("dimentions")
+    FLOORS = __DIMENTIONS.get("floors")
+    ROOMS_PER_FLOOR = __DIMENTIONS.get("rooms_per_floor")
+    TOTAL_ROOMS = __DIMENTIONS.get("total_rooms")

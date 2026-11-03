@@ -13,7 +13,7 @@ USER_MODULES = {
         {
             "title": "Reservas",
             "description": "Cree, actualize, consulte y elimine las reservas de habitacion",
-            "picture": "assets/icheckout_logo.png",
+            "picture": "assets/icheckout_booking.png",
             "url": "/booking/"
         }
     ],

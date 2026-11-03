@@ -110,7 +110,7 @@ class BookingModifyStatusForm(forms.Form):
 class BookingSearchForm(forms.Form):
     #campos
     search = forms.CharField(
-        label="Buscar",
+        label="",
         min_length=1,
         widget=forms.TextInput({
             "class": "inpt",

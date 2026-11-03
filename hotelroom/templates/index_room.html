@@ -6,18 +6,16 @@
 {% endblock scripts %}
 
 {% block nav %}
-    <a href="/home/" class="link">recepción</a>
+    <a href="/home/" class="link">Recepción</a>
 {% endblock nav %}
 
 {% block content %}
-    <div class="row-layout">
+    <div class="row-layout center">
         <div>
             <div class="box column-layout">
-                <div class="row-layout">
-                    <button class="btn btn-primary" onclick="setOpenModal('type')">
-                        nuevo tipo de habitacion
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="setOpenModal('type')">
+                    Registrar tipo de habitacion
+                </button>
                 <div class="tbl-wrapper">
                     <table class="tbl">
                         <thead>
@@ -42,20 +40,20 @@
         </div>
         <div class="width-70">
             <div class="box column-layout">
-                <div class="row-layout">
-                    <button class="btn btn-primary" onclick="setOpenModal('room')">registrar habitacion</button>
+                <div class="row-layout center">
+                    <button class="btn btn-primary" onclick="setOpenModal('room')">Registrar habitacion</button>
                 </div>
                 <form class="row-layout form-inline" method="post">
                     {% csrf_token %}
                     {{ room_paginator_form }}
-                    <button class="btn btn-primary" type="submit">visualizar</button>
+                    <button class="btn btn-primary" type="submit">Visualizar</button>
                 </form>
                 <div style="align-self: center; overflow: auto; max-width: 800px; max-height: 500px;">
                         <table>
                             {% for floor in rooms %}
                                 <tr>
                                     <td>
-                                        <p>Piso {{ forloop.revcounter }}</p>
+                                        <p>Piso {{ floor.rooms.0.floor }}</p>
                                     </td>
                                     {% for room in floor.rooms %}
                                         <td class="room {{ room.state }} txt-center">
@@ -85,7 +83,7 @@
                 <form class="column-layout" method="post">
                     {% csrf_token %}
                     {{ type_form }}
-                    <div class="row-layout">
+                    <div class="row-layout center">
                         <button class="btn btn-agree" type="submit">registrar</button>
                         <button class="btn btn-primary" type="reset" onclick="setCloseModal('type')">cerrar</button>
                     </div>
@@ -100,7 +98,7 @@
                 <form class="column-layout" method="post">
                     {% csrf_token %}
                     {{ room_form }}
-                    <div class="row-layout">
+                    <div class="row-layout center">
                         <button class="btn btn-agree" type="submit">registrar</button>
                         <button class="btn btn-primary" type="reset" onclick="setCloseModal('room')">cerrar</button>
                     </div>

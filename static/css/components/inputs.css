@@ -5,11 +5,12 @@
     border-radius: 10px;
     text-decoration: none;
     outline: none;
-    padding: 3px;
+    padding: 4px;
 }
 
 /* wrapper de formulario */
 form div {
+    flex-grow: 1;
     padding-left: 10px;
     padding-right: 10px;
     display: flex;
@@ -17,6 +18,13 @@ form div {
     gap: 5px;
 }
 
+/* etiquetas */
+form > div > label {
+    font-weight: bold;
+}
+
+
+/* distribucion en linea */
 .form-inline div {
     padding-left: 10px;
     padding-right: 10px;

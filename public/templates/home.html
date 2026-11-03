@@ -9,17 +9,17 @@
             <div class="box width-40">
                 <h3 class="subtitle">{{ module.title }}</h3>
                 <hr size="5" style="background-color: var(--primary-1);"/>
-                <div class="row-layout">
+                <div class="column-layout align-center">
                     <img 
                         class="img"
                         src="{% static module.picture %}"
                         width="192"
                         height="192"
                     />
-                </div>
-                <p class="txt-center">{{ module.description }}</p>
-                <div class="row-layout">
-                    <a class="btn btn-primary" href="{{ module.url }}">acceder</a>
+                    <p class="txt-center">{{ module.description }}</p>
+                    <div class="row-layout">
+                        <a class="btn btn-primary" href="{{ module.url }}">Acceder</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}

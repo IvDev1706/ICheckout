@@ -3,25 +3,33 @@
 {% load static %}
 
 {% block content %}
-    <div class="box width-50 column-layout">
+    <div class="box width-50">
         <h3 class="subtitle">Información de la cuenta</h3>
-        <div class="row-layout">
+        <hr size="5" style="background-color: var(--primary-1);"/>
+        <div class="column-layout align-center">
             <img 
                 class="img"
                 src="{% static 'assets/icheckout_user.png' %}"
                 alt="type_picture" width="320" height="320"
             />
-            <div>
-                <p>Id de usuario: {{ user.pk }}</p>
-                <p>Nombre: {{ user.name }}</p>
-                <p>Rol: {{ user.role }}</p>
-            </div>
+            <b>Id de usuario:</b>
+            <p>
+                {{ user.pk }}
+            </p>
+            <b>Nombre:</b>
+            <p>
+                {{ user.name }}
+            </p>
+            <b>Rol:</b>
+            <p>
+                {{ user.role }}
+            </p>
         </div>
-        <div class="row-layout">
+        <div class="row-layout center">
             <a class="btn btn-primary" href="/home/">
-                volver a pantalla principal
+                Volver a pantalla principal
             </a>
-            <a class="btn btn-primary" href="/logout">cerrar sesion</a>
+            <a class="btn btn-primary" href="/logout">Cerrar sesion</a>
         </div>
     </div>
 {% endblock content %}

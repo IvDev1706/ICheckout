@@ -1,5 +1,7 @@
-.matrix-layout {
+.booking-matrix {
+    overflow-x: scroll;
+    max-width: 1200px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 300px);
     gap: 5px;
 }

@@ -1,14 +1,12 @@
 .column-layout {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: flex-start;
     gap: 10px;
 }
 
 .row-layout {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
     gap: 10px;
 }
 
@@ -17,8 +15,7 @@
     justify-content: center;
 }
 
-.completely-center {
-    justify-content: center;
+.align-center {
     align-items: center;
 }
 

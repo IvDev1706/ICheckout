@@ -16,7 +16,7 @@ class IndexView(View):
     def get(self, request:HttpRequest, *args, **kargs):
         #obtener pagina
         page = int(request.GET.get("page",0))
-        page = page if page < 1 else 1
+        page = page if page > 0 else 1
         
         #obtener busqueda
         search = request.GET.get("search","")
@@ -28,6 +28,8 @@ class IndexView(View):
             "bookings": self.service.get_bookings(page,search=search),
             "form": self.form_type(),
             "search_form": self.search_form_type(),
+            "prev": page-1 if page > 0 else 0,
+            "next": page+1,
         }
         
         #retorno de plantilla

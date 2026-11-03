@@ -6,7 +6,7 @@ from .models import Booking, BookingRoomAsignment, HotelRoom
 #clase de servicio de reservas
 class BookingService:
     #operaciones
-    def get_bookings(self, page:int, per_page:int = 10, search:str=""):
+    def get_bookings(self, page:int, per_page:int = 12, search:str=""):
         #manejo de error
         try:
             #contenedor de reservas
@@ -27,14 +27,14 @@ class BookingService:
                     #es busqueda nombre
                     bookings = Booking.objects.filter(
                         owner__icontains=search,
-                        id__gte=page+1,
-                        id__lte=(page+1)*per_page
+                        id__gte=page,
+                        id__lte=page*per_page
                     )
             else:
                 #paginacion sobre todo
                 bookings = Booking.objects.filter(
-                    id__gte=page+1,
-                    id__lte=(page+1)*per_page
+                    id__gte=page + ((page-1)*per_page),
+                    id__lte=page + per_page
                 )
             
             #si no hay nada

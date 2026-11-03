@@ -1,0 +1,8 @@
+{
+    "branch": "main",
+    "dimentions": {
+        "floors": 5,
+        "rooms_per_floor": 50,
+        "total_rooms": 250
+    }
+}

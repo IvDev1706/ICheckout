@@ -1,4 +1,5 @@
 from ..models import HotelRoom
+from icheckout.settings import FLOORS
 
 #estados de habitacion
 ROOM_STATES = [
@@ -22,21 +23,22 @@ class HotelRoomService:
             #retornar fracaso
             return None
         
-    def get_rooms(self, start_floor:int, span:int = 4):
+    def get_rooms(self, start_floor:int, span:int = FLOORS):
         #manejo de error
         try:
+            #construir la matriz
+            rooms_cluster = [[] for floor in range(start_floor,(start_floor+span))]
+            
             #obtener objetos de forma descendiente
-            rooms = HotelRoom.objects.order_by("-floor").filter(floor__gte=start_floor,floor__lte=start_floor+span)
+            rooms = HotelRoom.objects.order_by("-floor").filter(floor__gte=start_floor,floor__lt=start_floor+span)
             
             #validacion de vacios
             if not rooms.exists():
+                del rooms_cluster
                 return [[]]
             
             #obtener el piso mas grande
-            max_floor = rooms[0].floor
-            
-            #matriz de habitaciones
-            rooms_clustered = [[] for i in range(max_floor)]
+            max_floor = (start_floor + span) - 1
             
             #construir matriz y agrupar habitaciones
             index = 0
@@ -44,11 +46,11 @@ class HotelRoomService:
                 #verificar piso
                 if room.floor != max_floor:
                     #mover punteros
-                    index += (max_floor - room.floor)
+                    index += (max_floor-room.floor) % len(rooms_cluster)
                     max_floor = room.floor
                     
                 #añadir al piso
-                rooms_clustered[index].append({
+                rooms_cluster[index].append({
                     "pk":room.pk, 
                     "floor": room.floor,
                     "type": room.type if room.type else "sin tipo",
@@ -56,7 +58,7 @@ class HotelRoomService:
                 })
             
             #retornar habitaciones
-            return rooms_clustered
+            return rooms_cluster
         except Exception as e:
             #imprimir mensaje de error
             print(f"Error: {e}")

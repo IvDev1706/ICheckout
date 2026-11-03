@@ -13,6 +13,9 @@ class LoginView(View):
     
     #peticiones get
     def get(self, request:HttpRequest, *args, **kargs):
+        #limpiar la sesion
+        request.session.flush()
+        
         #preparar contexto
         context = {
             "title": "ICheckout - Login",

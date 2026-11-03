@@ -3,38 +3,58 @@
 {% load static %}
 
 {% block links %}
-    <a href="/home/" class="link">recepción</a> /
-    <a href="/booking/" class="link">reservas</a>
+    <a href="/home/" class="link">Recepción</a> /
+    <a href="/booking/" class="link">Reservas</a>
 {% endblock links %}
 
 {% block box_content %}
     <h3 class="subtitle">Reserva R-{{ booking.pk }}</h3>
-    <div class="row-layout">
+    <div class="row-layout start">
         <img 
             class="img"
-            src="{% static 'assets/icheckout_logo.png' %}"
+            src="{% static 'assets/icheckout_booking.png' %}"
             alt="booking_picture" width="256" height="256"
         />
         <div>
-            <p>Titular: {{ booking.owner }}</p>
-            <p>Tipo de turista: {{ booking.tourist_type }}</p>
-            <p>Numero de huespedes: {{ booking.guests }}</p>
-            <p>Fecha de llegada: {{ booking.arrive_date }}</p>
-            <p>Fecha de salida: {{ booking.departure_date }}</p>
+            <b>Titular:</b>
+            <p class="pharagraph-line">
+                {{ booking.owner }}
+            </p>
+            <b>Tipo de turista:</b>
+            <p class="pharagraph-line">
+                {{ booking.tourist_type }}
+            </p>
+            <b>Numero de huespedes:</b>
+            <p class="pharagraph-line">
+                {{ booking.guests }}
+            </p>
+        </div>
+        <div>
+            <b>Fecha de llegada:</b>
+            <p class="pharagraph-line">
+                {{ booking.arrive_date }}
+            </p>
+            <b>Fecha de salida:</b>
+            <p class="pharagraph-line">
+                {{ booking.departure_date }}
+            </p>
             {% if booking.state == "Terminada" or booking.state == "Cancelada" %}
-                <p>Estado: {{ booking.state }}</p>
+                <b>Estado:</b>
+                <p class="pharagraph-line">
+                    {{ booking.state }}
+                </p>
             {% else %}
-                <form class="row-layout form-inline" method="post">
+                <form class="column-layout" method="post">
                     {% csrf_token %}
                     {{ modify_status_form }}
-                    <button class="btn btn-primary" type="submit">cambiar</button>
+                    <button class="btn btn-primary" type="submit">Cambiar</button>
                 </form>
             {% endif %}
         </div>
     </div>
-    <div class="row-layout">
-        <button class="btn btn-secondary" onclick="setOpenModal('modify')">editar</button>
-        <button class="btn btn-danger" onclick="setOpenModal('confirm')">eliminar</button>
+    <div class="row-layout center">
+        <button class="btn btn-secondary" onclick="setOpenModal('modify')">Editar</button>
+        <button class="btn btn-danger" onclick="setOpenModal('confirm')">Eliminar</button>
     </div>
 {% endblock box_content %}
 
@@ -73,9 +93,9 @@
             <form class="column-layout" method="post">
                 {% csrf_token %}
                 {{ modify_form }}
-                <div class="row-layout">
-                    <button class="btn btn-agree" type="submit">guardar</button>
-                    <button class="btn btn-primary" onclick="setCloseModal('modify')" type="reset">cerrar</button>
+                <div class="row-layout center">
+                    <button class="btn btn-agree" type="submit">Guardar</button>
+                    <button class="btn btn-primary" onclick="setCloseModal('modify')" type="reset">Cerrar</button>
                 </div>
             </form>
         </div>
@@ -84,24 +104,24 @@
         <div class="box">
             {% if booking.state == 'En casa' %}
                 <h3 class="subtitle">Operación no permitida</h3>
-                <p style="text-align: center;">
+                <p class="txt-center">
                     No se puede eliminar una reserva si el cliente ya esta
                     en piso.
                 </p>
-                <div class="row-layout">
-                    <button class="btn btn-primary" onclick="setCloseModal('confirm')">cerrar</button>
+                <div class="row-layout center">
+                    <button class="btn btn-primary" onclick="setCloseModal('confirm')">Cerrar</button>
                 </div>
             {% else %}
                 <h3 class="subtitle">Confirmar eliminación</h3>
-                <p style="text-align: center;">
+                <p class="txt-center">
                     ¿Esta seguro de realizar esta accion? es
                     irreversible.
                 </p>
-                <form method="post" class="row-layout">
+                <form method="post" class="row-layout center">
                     {% csrf_token %}
                     {{ drop_form }}
-                    <button class="btn btn-danger" type="submit">eliminar</button>
-                    <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">cerrar</button>
+                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                    <button class="btn btn-primary" type="reset" onclick="setCloseModal('confirm')">Cerrar</button>
                 </form>
             {% endif %}
         </div>

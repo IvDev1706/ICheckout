@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from ..forms import RoomTypeAddForm, HotelRoomAddForm, HotelRoomPaginationForm
 from ..services import RoomTypeService, HotelRoomService
+from icheckout.settings import ROOMS_PER_FLOOR
 
 #vista principal de hotel
 class IndexView(views.View):
@@ -18,21 +19,13 @@ class IndexView(views.View):
     def get(self, request:HttpRequest, *args, **kargs):
         #obtener el piso
         start_floor = int(request.GET.get("start_floor",1))
-        span = int(request.GET.get("span",4))
+        span = int(request.GET.get("span",5))
         
         #obtener registros
         rooms = self.room_service.get_rooms(start_floor,span)
         types = self.type_service.get_types()
-        
-        #buscar el piso con mas habitaciones
-        max_rooms = 0
-        for floor in rooms:
-            #comparar
-            if len(floor) > max_rooms:
-                #cambiar el maximo
-                max_rooms = len(floor)
                 
-        gaps = [range(max_rooms - len(floor)) for floor in rooms]
+        gaps = [range(ROOMS_PER_FLOOR - len(floor)) for floor in rooms]
             
         #contexto
         context = {
