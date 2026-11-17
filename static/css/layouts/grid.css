@@ -5,3 +5,28 @@
     grid-template-columns: repeat(4, 300px);
     gap: 5px;
 }
+
+/* permitir que el filtro y sus acciones se acomoden en pantallas pequenas */
+.stadistics-filter {
+    flex-wrap: wrap;
+}
+
+/* matriz de graficas de estadisticas */
+.stadistics-grid {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    gap: 10px;
+}
+
+.stadistics-grid > .box {
+    width: 100%;
+    margin: 0;
+}
+
+@media (max-width: 800px) {
+    .stadistics-grid {
+        grid-template-columns: 1fr;
+    }
+}

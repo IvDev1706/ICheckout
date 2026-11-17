@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('public.urls')),
     path('admin/', admin.site.urls),
     path('room/',include('hotelroom.urls')),
-    path('booking/',include('booking.urls'))
+    path('booking/',include('booking.urls')),
+    path('stadistics/',include('stadistics.urls'))
 ]

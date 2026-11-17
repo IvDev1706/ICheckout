@@ -14,7 +14,7 @@ class LoginForm(forms.Form):
     )
     password = forms.CharField(
         label='Contraseña:',
-        max_length=10,
+        max_length=18,
         required=True,
         widget=forms.PasswordInput({
             "class": "inpt"
@@ -26,7 +26,7 @@ class SignUpForm(forms.Form):
     #campos de login
     name = forms.CharField(
         label='Usuario:',
-        max_length=15,
+        max_length=18,
         required=True,
         widget=forms.TextInput({
             "class": "inpt"
@@ -34,7 +34,7 @@ class SignUpForm(forms.Form):
     )
     password = forms.CharField(
         label='Contraseña:',
-        max_length=10,
+        max_length=15,
         required=True,
         widget=forms.PasswordInput({
             "class": "inpt"

@@ -1,0 +1,74 @@
+{% extends "base_app.html" %}
+
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'js/chart.umd.min.js' %}" defer></script>
+    <script src="{% static 'js/stadistics.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block nav %}
+    <a href="/home/" class="link">Recepción</a>
+{% endblock nav %}
+
+{% block content %}
+    <div class="column-layout align-center">
+        <div class="box width-70">
+            <form class="row-layout form-inline stadistics-filter" method="get">
+                {{ form }}
+                <button class="btn btn-primary" type="submit">Actualizar</button>
+                <button
+                    class="btn btn-secondary"
+                    type="submit"
+                    formaction="{% url 'stadistics:report' %}"
+                >
+                    Generar reporte de reservas
+                </button>
+            </form>
+        </div>
+        <h3 class="subtitle">Periodo: {{ period }}</h3>
+        <div class="stadistics-grid">
+            <div class="box">
+                <h4 class="subtitle">Tipos de turista</h4>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="touristTypeChart"
+                        role="img"
+                        aria-label="Grafica de reservas por tipo de turista"
+                    ></canvas>
+                </div>
+            </div>
+            <div class="box">
+                <h4 class="subtitle">Tipos de habitacion</h4>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="roomTypeChart"
+                        role="img"
+                        aria-label="Grafica de reservas por tipo de habitacion"
+                    ></canvas>
+                </div>
+            </div>
+            <div class="box">
+                <h4 class="subtitle">Reservas por dia</h4>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="bookingsPerDayChart"
+                        role="img"
+                        aria-label="Grafica de reservas por dia del mes"
+                    ></canvas>
+                </div>
+            </div>
+            <div class="box">
+                <h4 class="subtitle">Canceladas vs terminadas</h4>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="bookingStateChart"
+                        role="img"
+                        aria-label="Grafica de reservas canceladas y terminadas"
+                    ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ chart_data|json_script:"stadistics-data" }}
+{% endblock content %}

@@ -9,7 +9,7 @@ class MySessionValidationMiddleware:
 
     def __call__(self, request:HttpRequest):
         #rutas protegidas
-        protected_paths = ('/room/','/profile/','/logout/','/home/','/booking/')
+        protected_paths = ('/room/','/profile/','/logout/','/home/','/booking/','/stadistics/')
 
         #validacion de rutas
         if request.path.startswith(protected_paths):

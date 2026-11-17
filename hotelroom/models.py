@@ -3,7 +3,7 @@ from django.db import models
 #modelo de tipo de habitacion
 class RoomType(models.Model):
     #campos de tipo habitacion
-    name = models.TextField(
+    name = models.CharField(
         max_length=15,
         unique=True,
         db_index=True,

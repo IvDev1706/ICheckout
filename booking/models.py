@@ -8,7 +8,7 @@ class Booking(models.Model):
     arrive_date = models.DateField(
         null=False,
         db_index=True,
-        default=date.today()
+        default=date.today
     )
     departure_date = models.DateField(
         null=True,

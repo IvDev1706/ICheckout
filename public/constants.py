@@ -22,7 +22,7 @@ USER_MODULES = {
             "title": "Reporteo",
             "picture": "assets/icheckout_logo.png",
             "description": "consulte las estadisticas del mes mediante reportes",
-            "url": "/"
+            "url": "/stadistics/"
         },
         {
             "title": "Prediccion y deteccion (AI)",

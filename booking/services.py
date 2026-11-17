@@ -12,6 +12,10 @@ class BookingService:
             #contenedor de reservas
             bookings = None
             
+            #pivote de pagina
+            pivot = page + ((page-1)*per_page)
+            upper_limit = pivot + per_page
+            
             #validar filtro
             if search:
                 #validar si es fecha o nombre
@@ -20,21 +24,21 @@ class BookingService:
                     #obtener datos
                     bookings = Booking.objects.filter(
                         arrive_date=date.date(),
-                        id__gte=page+1,
-                        id__lte=(page+1)*per_page
+                        id__gte=pivot,
+                        id__lte=upper_limit
                     )
                 except Exception as e:
                     #es busqueda nombre
                     bookings = Booking.objects.filter(
                         owner__icontains=search,
-                        id__gte=page,
-                        id__lte=page*per_page
+                        id__gte=pivot,
+                        id__lte=upper_limit
                     )
             else:
                 #paginacion sobre todo
                 bookings = Booking.objects.filter(
-                    id__gte=page + ((page-1)*per_page),
-                    id__lte=page + per_page
+                    id__gte=pivot,
+                    id__lte=upper_limit
                 )
             
             #si no hay nada
