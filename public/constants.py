@@ -28,7 +28,7 @@ USER_MODULES = {
             "title": "Prediccion y deteccion (AI)",
             "picture": "assets/icheckout_logo.png",
             "description": "Revise deteccion de patrones y prediccion de cifras",
-            "url": "/"
+            "url": "/stadistics/prediction/"
         }
     ]
 }

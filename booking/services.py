@@ -14,7 +14,7 @@ class BookingService:
             
             #pivote de pagina
             pivot = page + ((page-1)*per_page)
-            upper_limit = pivot + per_page
+            upper_limit = pivot + per_page - 1
             
             #validar filtro
             if search:

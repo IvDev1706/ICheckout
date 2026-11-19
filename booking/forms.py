@@ -40,12 +40,17 @@ class BookingAddForm(forms.Form):
     )
     rooms = forms.ModelMultipleChoiceField(
         label="Habitaciones disponibles",
-        queryset=HotelRoom.objects.filter(state=0),
+        queryset=HotelRoom.objects.none(),
         required=True,
         widget=forms.SelectMultiple({
             "class":"inpt-select"
         })
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        #el queryset se reevalua en cada instancia para no mostrar habitaciones obsoletas
+        self.fields["rooms"].queryset = HotelRoom.objects.filter(state=0)
 
 #formulario de eliminacion de reserva
 class BookingDropForm(forms.Form):

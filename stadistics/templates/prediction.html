@@ -1,0 +1,114 @@
+{% extends "base_app.html" %}
+
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'js/chart.umd.min.js' %}" defer></script>
+    <script src="{% static 'js/prediction.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block nav %}
+    <a href="/stadistics/" class="link">Reporteo</a>
+{% endblock nav %}
+
+{% block content %}
+    <div class="column-layout align-center">
+        {% if forecast %}
+            <div class="box width-70">
+                <h3 class="subtitle">Predicción de reservas</h3>
+                <p class="txt-center">
+                    Modelo: {{ forecast.model }} |
+                    Historial: {{ forecast.history_start|date:"m/Y" }} - {{ forecast.history_end|date:"m/Y" }} |
+                    Horizonte: {{ forecast.horizon }} meses |
+                    RMSE: {{ forecast.rmse|floatformat:2 }}
+                </p>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="forecastChart"
+                        role="img"
+                        aria-label="Grafica del historial y la prediccion de reservas"
+                    ></canvas>
+                </div>
+            </div>
+        {% else %}
+            <div class="box width-70">
+                <h3 class="subtitle">Predicción de reservas</h3>
+                <p class="txt-center chart-empty">
+                    Todavía no hay una predicción calculada. Ejecute el comando
+                    <strong>compute_forecast</strong> para generarla.
+                </p>
+            </div>
+        {% endif %}
+
+        {% if cluster_run %}
+            <div class="box width-70">
+                <h3 class="subtitle">Detección de patrones</h3>
+                <p class="txt-center">
+                    Algoritmo: {{ cluster_run.algorithm }} |
+                    Periodo: {{ cluster_run.period_start|date:"d/m/Y" }} - {{ cluster_run.period_end|date:"d/m/Y" }} |
+                    Grupos: {{ cluster_run.clusters }} |
+                    Silueta: {{ cluster_run.silhouette|floatformat:4 }}
+                </p>
+            </div>
+            <div class="stadistics-grid">
+                <div class="box">
+                    <h4 class="subtitle">Habitaciones por patrón</h4>
+                    <div class="chart-wrapper">
+                        <canvas
+                            id="clusterSizeChart"
+                            role="img"
+                            aria-label="Grafica de habitaciones por patron de demanda"
+                        ></canvas>
+                    </div>
+                </div>
+                <div class="box">
+                    <h4 class="subtitle">Ocupación promedio por patrón</h4>
+                    <div class="chart-wrapper">
+                        <canvas
+                            id="clusterUtilizationChart"
+                            role="img"
+                            aria-label="Grafica de ocupacion promedio por patron de demanda"
+                        ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="box width-70">
+                <div class="tbl-wrapper">
+                    <table class="tbl">
+                        <thead>
+                            <tr>
+                                <th class="tbl-head">Patrón</th>
+                                <th class="tbl-head">Habitaciones</th>
+                                <th class="tbl-head">Ocupación promedio</th>
+                                <th class="tbl-head">Ingreso promedio</th>
+                                <th class="tbl-head">Reservas promedio</th>
+                                <th class="tbl-head">Huéspedes promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for group in groups %}
+                                <tr>
+                                    <td class="tbl-cell">{{ group.label }}</td>
+                                    <td class="tbl-cell txt-right">{{ group.size }}</td>
+                                    <td class="tbl-cell txt-right">{{ group.utilization }}%</td>
+                                    <td class="tbl-cell txt-right">{{ group.revenue|floatformat:2 }}</td>
+                                    <td class="tbl-cell txt-right">{{ group.bookings|floatformat:2 }}</td>
+                                    <td class="tbl-cell txt-right">{{ group.guests|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="box width-70">
+                <h3 class="subtitle">Detección de patrones</h3>
+                <p class="txt-center chart-empty">
+                    Todavía no hay un clustering calculado. Ejecute el comando
+                    <strong>compute_clusters</strong> para generarlo.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+    {{ chart_data|json_script:"prediction-data" }}
+{% endblock content %}

@@ -2,3 +2,5 @@ Django==6.1.1
 gunicorn==26.2.0
 bcrypt==5.0.0
 mysqlclient==2.3.1
+scikit-learn==1.9.1
+statsmodels==0.15.0
